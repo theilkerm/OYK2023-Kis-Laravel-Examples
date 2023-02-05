@@ -19,12 +19,28 @@ Route::get('/', function () {
 
 });
 
-Route::get('/deli', function () {
-    return "deli'ye hoş geldiniz";
+// route tanımlama
+Route::get('/mustafa', function () {
+    return "mustafa'ya hoş geldiniz";
 
 });
 
+// parametreli route
 Route::get('selam/{isim}', function ($isim) {
     return "selam " . $isim;
 
 });
+
+// parametre kontrolüne göre farklı cevaplar verilir
+Route::get('senKimsin/{name}', function ($name) {
+    if ($name == "mustafa") {
+        return "sen mustafasın";
+    } else   {
+        return "sen kimsin " . $name;
+    }
+});
+
+// ? işareti ile parametre zorunlu değil
+Route::get('selam2/{name?}', function ($name = "mustafa") {
+    return "selam " . $name;
+})->where('name', '[A-Za-z]+');
