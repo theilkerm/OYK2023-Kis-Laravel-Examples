@@ -3,6 +3,7 @@
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
 
 
 /*
@@ -49,11 +50,7 @@ Route::get('/', function () {
 // });
 
 // tüm kursları getirir
-Route::get('courses', function () {
-    //get all courses
-   $courses = Course::all();
-   return view('courses', compact('courses'));
-})->name('courses.index');
+Route::get('courses', [CourseController::class,'index'])->name('courses.index');
 
 //ID'ye göre kurs getirir
 Route::get('courses/{courseId}', function ($courseId) {

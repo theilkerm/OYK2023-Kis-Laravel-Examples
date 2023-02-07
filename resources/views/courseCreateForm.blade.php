@@ -7,6 +7,7 @@
 
 <body>
     <h1>New Course</h1>
+    <img src="https://media.tenor.com/3Q3PUB0AgmcAAAAd/vettel-donut.gif" width="20%" height="auto" alt="">
     <form action="{{ route('courses.create')}}" method="POST">
         @csrf
         <label for="title">Course Name</label>

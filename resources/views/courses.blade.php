@@ -4,6 +4,7 @@
         <title>My Courses</title>
     </head>
     <body>
+        <img src="https://media.tenor.com/QWai-afTJb4AAAAC/graphic-design-is-my-passion-designer.gif" width="20%" height="auto" alt="">
         <h1>My Courses</h1>
         <a href="{{ route('courses.create.form')}}">Create New Course</a>
         <table>
