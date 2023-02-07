@@ -19,8 +19,7 @@ use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     // return "herhangi bir şey";
-    return view('welcome');
-
+    return redirect()->route('courses.index');
 });
 
 // // route tanımlama
@@ -53,48 +52,19 @@ Route::get('/', function () {
 Route::get('courses', [CourseController::class,'index'])->name('courses.index');
 
 //ID'ye göre kurs getirir
-Route::get('courses/{courseId}', function ($courseId) {
-    $course = Course::findOrFail($courseId);
-    return view('courseDetail', compact('course'));
-})->name('courses.detail') ;
+Route::get('courses/{course}',[CourseController::class, 'show'] )->name('courses.detail') ;
 
 // kurs silme
-Route::delete('courses/delete/{courseId}', function ($courseId) {
-    $course = Course::findOrFail($courseId);
-    $course->delete();
-    //route el ile girilir
-    return redirect('/courses');
-    // rotaya isim verilir ve isimle çağırılır, rota çağırılırken id parametresi verilir.
-})->name('courses.delete');
+Route::delete('courses/delete/{course}', [CourseController::class, 'destroy'] )->name('courses.delete');
 
-// kurs ekleme
-Route::get('courses/create/form', function () {
-    return view('courseCreateForm');
-})->name('courses.create.form');
+// kurs ekleme formuna gider
+Route::get('courses/create/form', [CourseController::class, 'create'] )->name('courses.create.form');
 
-Route::post('/courses/create', function () {
-    $course = new Course();
-    $course->title = request('title');
-    $course->lecturers = request('lecturers');
-    $course->available_seats = request('available_seats');
-    $course->save();
-    // route rota isminden çağırılarak kullanılır
-    return redirect()->route('courses.detail', ['courseId' => $course->id]);
-})->name('courses.create');
+// kursu kaydeder
+Route::post('courses/create', [CourseController::class,'store'] )->name('courses.create');
 
 //kurs update formuna gider
-Route::get('courses/update/{id}', function ($id) {
-    $course = Course::findOrFail($id);
-    return view('courseUpdateForm', compact('course'));
-})->name('courses.update.form');
+Route::get('courses/update/{course}', [CourseController::class, 'edit'])->name('courses.edit');
 
 //kursu günceller
-Route::put('/courses/update/{id}', function ($id, Request $request) {
-    $course = Course::findOrFail($id);
-
-    $course->title = $request->title;
-    $course->lecturers = $request->lecturers;
-    $course->available_seats = $request->available_seats;
-    $course->save();
-    return redirect()->route('courses.detail', $course->id);
-})->name('courses.update');
+Route::put('courses/update/{course}', [CourseController::class, 'update'])->name('courses.update');

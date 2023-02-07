@@ -15,7 +15,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::all();
-        return view('courses', compact('courses'));
+        return view('courses.courses', compact('courses'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('courses.create');
     }
 
     /**
@@ -36,7 +36,22 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //form içeriği kontrolü
+        $request->validate([
+            //zorunlu string, azami 255 karakter
+            'title' => 'required|string|max:255',
+            //zorunlu değil, string, azami 255 karakter
+            'lecturers' => 'nullable|string|max:255',
+            //zorunlu, integer, 0'dan büyük
+            'available_seats' => 'required|integer|min:0',
+        ]);
+        //kayıt işlemi
+        $course = new Course();
+        $course->title = request('title');
+        $course->lecturers = request('lecturers');
+        $course->available_seats = request('available_seats');
+        $course->save();
+        return redirect()->route('courses.detail', $course->id);
     }
 
     /**
@@ -46,8 +61,8 @@ class CourseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
-    {
-        //
+    {   
+        return view('courses.detail', compact('course'));
     }
 
     /**
@@ -59,6 +74,8 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         //
+        return view('courses.edit', compact('course'));
+
     }
 
     /**
@@ -70,7 +87,22 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        $request->validate([
+            //zorunlu string, azami 255 karakter
+            'title' => 'required|string|max:255',
+            //zorunlu değil, string, azami 255 karakter
+            'lecturers' => 'nullable|string|max:255',
+            //zorunlu, integer, 0'dan büyük
+            'available_seats' => 'required|integer|min:0',
+        ]);
+
         //
+        $course->title = $request->title;
+        $course->lecturers = $request->lecturers;
+        $course->available_seats = $request->available_seats;
+        $course->save();
+        return redirect()->route('courses.detail', $course->id);
+    
     }
 
     /**
@@ -82,5 +114,9 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+        $course->delete();
+        //route el ile girilir
+        return redirect('/courses');
+    
     }
 }
