@@ -1,3 +1,9 @@
+{{-- sayfa şablonu gibi düşünülebilir. içindeki @yield('content') ile içerisine yazılan kodlar yerleştirilir.
+ @section('content') ile başlayıp @endsection ile bitirilir. 
+ @extends('layouts.app') ile bu şablonun kullanılacağı belirtilir. 
+ @section('content') ile başlayıp @endsection ile bitirilir.
+  @extends('layouts.app') ile bu şablonun kullanılacağı belirtilir. --}}
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -5,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Courses</title>
+    {{-- temel css kodları --}}
     <style>
         body{
             font-family: Arial, Helvetica, sans-serif;
@@ -38,18 +45,28 @@
                 </th>
             </thead>
         </table>
+        {{-- her sayfada görüneceği için navbar eklenir --}}
         <nav>
             <ul>
                 <li>
                     <a href="{{route('courses.index')}}">All Courses</a>
                 </li>
                 <li>
+                    <a href="{{ route('students.index') }}">All Students</a>
+                </li>
+                <li>
                     <a href="{{ route('courses.create.form')}}">Create New Course</a>
+                </li>
+                <li>
+                    <a href="{{ route('students.create.form') }} ">Add Student</a>
                 </li>
             </ul>
         </nav>
         <hr>
+        
+        {{-- sayfa içeriğinin basılacağı yer --}}
         @yield('content')
+
         <hr>
         Alt
         

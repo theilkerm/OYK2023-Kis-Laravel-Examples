@@ -35,4 +35,23 @@
             </tr>
         </tbody>
     </table>
+    <hr>
+    <h2>Kurs'un Öğrencileri</h2>
+    <table>
+        <thead>
+            <th style="text-align: center; border: 1px solid black; padding: 5px ">Öğrenci Adı</th>
+            <th style="text-align: center; border: 1px solid black; padding: 5px ">Öğrenci Yaşı</th>
+        </thead>
+        <tbody>
+            @foreach ($course->students as $student)
+                <tr>
+                    <td style="text-align: center; border: 1px solid black; padding: 5px ">
+                        <a href="{{ route('students.detail', $student->id)}}">
+                            {{ $student->name }}
+                        </a>
+                    </td>
+                    <td style="text-align: center; border: 1px solid black; padding: 5px ">{{ $student->age }}</td>
+                </tr>
+            @endforeach
+    </table>
 @endsection

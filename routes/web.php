@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Course;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
 
 
 /*
@@ -48,23 +47,46 @@ Route::get('/', function () {
 //     return "selam " . $name;
 // });
 
-// tüm kursları getirir
+// tüm kursları getirir. CourseController'da index fonksiyonu ile
 Route::get('courses', [CourseController::class,'index'])->name('courses.index');
 
-//ID'ye göre kurs getirir
+//ID'ye göre kurs getirir. CourseController'da show fonksiyonu ile
 Route::get('courses/{course}',[CourseController::class, 'show'] )->name('courses.detail') ;
 
-// kurs silme
+// kurs silme. CourseController'da destroy fonksiyonu ile
 Route::delete('courses/delete/{course}', [CourseController::class, 'destroy'] )->name('courses.delete');
 
-// kurs ekleme formuna gider
+// kurs ekleme formuna gider. CourseController'da create fonksiyonu ile
 Route::get('courses/create/form', [CourseController::class, 'create'] )->name('courses.create.form');
 
-// kursu kaydeder
+// kursu kaydeder. CourseController'da store fonksiyonu ile
 Route::post('courses/create', [CourseController::class,'store'] )->name('courses.create');
 
-//kurs update formuna gider
+//kurs update formuna gider. CourseController'da edit fonksiyonu ile
 Route::get('courses/update/{course}', [CourseController::class, 'edit'])->name('courses.edit');
 
-//kursu günceller
+//kursu günceller. CourseController'da update fonksiyonu ile
 Route::put('courses/update/{course}', [CourseController::class, 'update'])->name('courses.update');
+
+//STUDENT ROUTES
+
+//tüm öğrencileri getirir. StudentController'da index fonksiyonu ile
+Route::get('students', [StudentController::class, 'index'])->name('students.index');
+
+//ID'ye göre öğrenci getirir. StudentController'da show fonksiyonu ile
+Route::get('students/{student}', [StudentController::class, 'show'])->name('students.detail');
+
+//öğrenci silme. StudentController'da destroy fonksiyonu ile
+Route::delete('students/delete/{student}', [StudentController::class, 'destroy'])->name('students.delete');
+
+//öğrenci ekleme formuna gider. StudentController'da create fonksiyonu ile
+Route::get('students/create/form', [StudentController::class, 'create'])->name('students.create.form');
+
+//öğrenci kaydeder. StudentController'da store fonksiyonu ile
+Route::post('students/create', [StudentController::class, 'store'])->name('students.create');
+
+//öğrenci update formuna gider. StudentController'da edit fonksiyonu ile
+Route::get('students/update/{student}', [StudentController::class, 'edit'])->name('students.edit');
+
+//öğrenci günceller. StudentController'da update fonksiyonu ile
+Route::put('students/update/{student}', [StudentController::class, 'update'])->name('students.update');

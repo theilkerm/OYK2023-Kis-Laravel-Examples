@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     use HasFactory;
+
+    // bir kursun birden fazla öğrencisi olabilir. bağlantı kuruldu.
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }
